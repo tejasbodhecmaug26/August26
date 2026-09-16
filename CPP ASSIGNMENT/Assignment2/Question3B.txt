@@ -1,0 +1,64 @@
+
+#include <iostream>
+using namespace std;
+
+namespace Physics
+{
+    double clamp(double val, double min, double max)
+    {
+        if (val < min)
+            return min;
+        else if (val > max)
+            return max;
+        else
+            return val;
+    }
+
+    double lerp(double a, double b, double t)
+    {
+        return a + (b - a) * t;
+    }
+}
+
+namespace GameMath
+{
+    int clamp(int val, int min, int max)
+    {
+        if (val < min)
+            return min;
+        else if (val > max)
+            return max;
+        else
+            return val;
+    }
+
+    double lerp(double a, double b, double t)
+    {
+        return a + (b - a) * t;
+    }
+}
+
+int main()
+{
+    double velocity = Physics::clamp(15.5, 0.0, 10.0);
+    cout << "Physics clamp : " << velocity << endl;
+
+    int health = GameMath::clamp(120, 0, 100);
+    cout << "GameMath clamp : " << health << endl;
+
+    double physicsLerp = Physics::lerp(10.0, 20.0, 0.5);
+    cout << "Physics lerp : " << physicsLerp << endl;
+
+    double gameLerp = GameMath::lerp(0.0, 100.0, 0.25);
+    cout << "GameMath lerp : " << gameLerp << endl;
+
+    // Limited namespace scope
+    {
+        using namespace GameMath;
+
+        int level = clamp(15, 1, 10);
+        cout << "Limited scope clamp : " << level << endl;
+    }
+
+    return 0;
+}
