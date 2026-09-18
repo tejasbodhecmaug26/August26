@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class LedgerEntry
+{
+private:
+    string description;
+    double* amounts;
+    int days;
+
+public:
+
+    LedgerEntry(const string& desc, int d)
+    {
+        description = desc;
+        days = d;
+
+        amounts = new double[days];
+
+        for (int i = 0; i < days; i++)
+            amounts[i] = 0;
+    }
+
+    
+    LedgerEntry& operator=(const LedgerEntry& other)
+    {
+        if (this != &other)
+        {
+            delete[] amounts;
+
+            description = other.description;
+            days = other.days;
+
+            amounts = new double[days];
+
+            for (int i = 0; i < days; i++)
+                amounts[i] = other.amounts[i];
+        }
+
+        return *this;
+    }
+
+    double& operator[](int index)
+    {
+        return amounts[index];
+    }
+
+    ~LedgerEntry()
+    {
+        delete[] amounts;
+    }
+};
+
+int main()
+{
+    LedgerEntry jan("January", 3);
+    jan[0] = 100;
+
+    LedgerEntry feb("February", 3);
+
+    feb = jan;
+
+    cout << feb[0] << endl;
+
+    return 0;
+}
