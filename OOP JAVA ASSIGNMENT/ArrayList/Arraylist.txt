@@ -1,0 +1,140 @@
+import java.util.*;
+
+public class CollectionAssignment {
+
+    public static void main(String[] args) {
+
+        // ================= ARRAY LIST =================
+
+        ArrayList<String> colors = new ArrayList<>();
+
+        // 1. Add colors
+        colors.add("Red");
+        colors.add("Green");
+        colors.add("Blue");
+        colors.add("Yellow");
+
+        System.out.println("1. ArrayList:");
+        System.out.println(colors);
+
+
+        // 2. Insert element at first position
+        colors.add(0, "Black");
+
+        System.out.println("\n2. After adding at first position:");
+        System.out.println(colors);
+
+
+        // 3. Retrieve element at specified index
+        System.out.println("\n3. Element at index 2:");
+        System.out.println(colors.get(2));
+
+
+        // 4. Update specific element
+        colors.set(2, "White");
+
+        System.out.println("\n4. After updating index 2:");
+        System.out.println(colors);
+
+
+        // 5. Remove third element
+        colors.remove(2);
+
+        System.out.println("\n5. After removing third element:");
+        System.out.println(colors);
+
+
+        // 6. Search an element
+        String search = "Green";
+
+        if (colors.contains(search)) {
+            System.out.println("\n6. " + search + " is present");
+        } else {
+            System.out.println("\n6. " + search + " is not present");
+        }
+
+
+        // 7. Sort ArrayList
+        Collections.sort(colors);
+
+        System.out.println("\n7. Sorted ArrayList:");
+        System.out.println(colors);
+
+
+        // 8. Copy ArrayList
+        ArrayList<String> copy = new ArrayList<>();
+
+        copy.addAll(colors);
+
+        System.out.println("\n8. Copied ArrayList:");
+        System.out.println(copy);
+
+
+        // 9. Shuffle ArrayList
+        Collections.shuffle(colors);
+
+        System.out.println("\n9. Shuffled ArrayList:");
+        System.out.println(colors);
+
+
+        // 10. Reverse ArrayList
+        Collections.reverse(colors);
+
+        System.out.println("\n10. Reversed ArrayList:");
+        System.out.println(colors);
+
+
+        // ================= TREE SET =================
+
+        // 11. Create TreeSet and add colors
+
+        TreeSet<String> set1 = new TreeSet<>();
+
+        set1.add("Red");
+        set1.add("Green");
+        set1.add("Blue");
+        set1.add("Yellow");
+
+        System.out.println("\n11. TreeSet:");
+        System.out.println(set1);
+
+
+        // 12. Add all elements of one TreeSet to another
+
+        TreeSet<String> set2 = new TreeSet<>();
+
+        set2.add("Black");
+        set2.add("White");
+
+        set2.addAll(set1);
+
+        System.out.println("\n12. After adding all elements:");
+        System.out.println(set2);
+
+
+        // 13. Reverse order view
+
+        System.out.println("\n13. Reverse order:");
+
+        System.out.println(set2.descendingSet());
+
+
+        // 14. First and last elements
+
+        System.out.println("\n14. First element:");
+        System.out.println(set2.first());
+
+        System.out.println("Last element:");
+        System.out.println(set2.last());
+
+
+        // 15. Ceiling element
+
+        String value = "Green";
+
+        System.out.println("\n15. Element greater than or equal to "
+                + value + ":");
+
+        System.out.println(set2.ceiling(value));
+    }
+}
