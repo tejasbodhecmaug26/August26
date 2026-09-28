@@ -1,0 +1,135 @@
+interface RegularPolygon {
+
+    int getNumSides();
+
+    double getSideLength();
+
+    // Default method for perimeter
+    default double getPerimeter() {
+
+        return getNumSides() * getSideLength();
+    }
+
+    // Default method for interior angle
+    default double getInteriorAngle() {
+
+        int n = getNumSides();
+
+        return ((n - 2) * Math.PI) / n;
+    }
+}
+
+
+class EquilateralTriangle implements RegularPolygon {
+
+    double sideLength;
+
+    EquilateralTriangle(double sideLength) {
+
+        this.sideLength = sideLength;
+    }
+
+    public int getNumSides() {
+
+        return 3;
+    }
+
+    public double getSideLength() {
+
+        return sideLength;
+    }
+}
+
+
+class Square implements RegularPolygon {
+
+    double sideLength;
+
+    Square(double sideLength) {
+
+        this.sideLength = sideLength;
+    }
+
+    public int getNumSides() {
+
+        return 4;
+    }
+
+    public double getSideLength() {
+
+        return sideLength;
+    }
+}
+
+
+public class InterfaceAssignment {
+
+    // Static method to calculate total sides
+    static int totalSides(RegularPolygon[] polygons) {
+
+        int total = 0;
+
+        for (RegularPolygon p : polygons) {
+
+            total = total + p.getNumSides();
+        }
+
+        return total;
+    }
+
+
+    public static void main(String[] args) {
+
+        // Create objects
+        EquilateralTriangle triangle =
+                new EquilateralTriangle(5);
+
+        Square square =
+                new Square(10);
+
+
+        // Display Triangle
+        System.out.println("Equilateral Triangle");
+
+        System.out.println("Number of sides: "
+                + triangle.getNumSides());
+
+        System.out.println("Side length: "
+                + triangle.getSideLength());
+
+        System.out.println("Perimeter: "
+                + triangle.getPerimeter());
+
+        System.out.println("Interior Angle: "
+                + triangle.getInteriorAngle());
+
+
+        // Display Square
+        System.out.println("\nSquare");
+
+        System.out.println("Number of sides: "
+                + square.getNumSides());
+
+        System.out.println("Side length: "
+                + square.getSideLength());
+
+        System.out.println("Perimeter: "
+                + square.getPerimeter());
+
+        System.out.println("Interior Angle: "
+                + square.getInteriorAngle());
+
+
+        // RegularPolygon array
+        RegularPolygon[] polygons = {
+
+            triangle,
+            square
+        };
+
+
+        // Total sides
+        System.out.println("\nTotal sides: "
+                + totalSides(polygons));
+    }
+}
