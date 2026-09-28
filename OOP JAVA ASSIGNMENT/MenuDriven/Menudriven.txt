@@ -1,0 +1,96 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class FileEncryption {
+
+    static Scanner sc = new Scanner(System.in);
+
+    // Encryption
+    static void encrypt() {
+
+        try {
+
+            FileReader fr = new FileReader("input.txt");
+            FileWriter fw = new FileWriter("encrypted.txt");
+
+            int ch;
+
+            while ((ch = fr.read()) != -1) {
+
+                fw.write(ch + 3);
+            }
+
+            fr.close();
+            fw.close();
+
+            System.out.println("File Encrypted Successfully");
+
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    // Decryption
+    static void decrypt() {
+
+        try {
+
+            FileReader fr = new FileReader("encrypted.txt");
+            FileWriter fw = new FileWriter("decrypted.txt");
+
+            int ch;
+
+            while ((ch = fr.read()) != -1) {
+
+                fw.write(ch - 3);
+            }
+
+            fr.close();
+            fw.close();
+
+            System.out.println("File Decrypted Successfully");
+
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n===== File Encryption Menu =====");
+            System.out.println("1. Encrypt");
+            System.out.println("2. Decrypt");
+            System.out.println("3. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+            case 1:
+                encrypt();
+                break;
+
+            case 2:
+                decrypt();
+                break;
+
+            case 3:
+                System.out.println("Program Exit");
+                break;
+
+            default:
+                System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 3);
+
+        sc.close();
+    }
+}

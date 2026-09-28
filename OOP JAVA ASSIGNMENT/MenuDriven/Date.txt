@@ -1,0 +1,456 @@
+import java.io.*;
+import java.util.*;
+
+class Employee implements Serializable {
+
+    int id;
+    String name;
+    double salary;
+    String type;
+
+    Employee(int id, String name, double salary, String type) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.type = type;
+    }
+
+    public String toString() {
+        return id + " " + name + " " + salary + " " + type;
+    }
+}
+
+class Node implements Serializable {
+
+    Employee data;
+    Node next;
+    Node prev;
+
+    Node(Employee data) {
+        this.data = data;
+        next = null;
+        prev = null;
+    }
+}
+
+public class EmployeeAssignment {
+
+    static Node head = null;
+    static Node tail = null;
+    static Node current = null;
+
+    static Scanner sc = new Scanner(System.in);
+
+    // Add employee
+    static void addEmployee(String type) {
+
+        System.out.print("Enter Employee ID: ");
+        int id = sc.nextInt();
+
+        System.out.print("Enter Employee Name: ");
+        String name = sc.next();
+
+        System.out.print("Enter Salary: ");
+        double salary = sc.nextDouble();
+
+        Employee e = new Employee(id, name, salary, type);
+
+        Node newNode = new Node(e);
+
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            current = head;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+
+        System.out.println("Employee Added Successfully");
+    }
+
+    // Display all employees
+    static void displayAll() {
+
+        if (head == null) {
+            System.out.println("No Employees");
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    // First employee
+    static void firstEmployee() {
+
+        if (head == null) {
+            System.out.println("No Employees");
+            return;
+        }
+
+        current = head;
+        System.out.println(current.data);
+    }
+
+    // Next employee
+    static void nextEmployee() {
+
+        if (current == null) {
+            System.out.println("No Employee");
+            return;
+        }
+
+        if (current.next != null) {
+            current = current.next;
+            System.out.println(current.data);
+        } else {
+            System.out.println("Already at Last Employee");
+        }
+    }
+
+    // Previous employee
+    static void previousEmployee() {
+
+        if (current == null) {
+            System.out.println("No Employee");
+            return;
+        }
+
+        if (current.prev != null) {
+            current = current.prev;
+            System.out.println(current.data);
+        } else {
+            System.out.println("Already at First Employee");
+        }
+    }
+
+    // Last employee
+    static void lastEmployee() {
+
+        if (tail == null) {
+            System.out.println("No Employees");
+            return;
+        }
+
+        current = tail;
+        System.out.println(current.data);
+    }
+
+    // Sort according to employee type
+    static void sortType(String type) {
+
+        ArrayList<Employee> list = new ArrayList<>();
+
+        Node temp = head;
+
+        while (temp != null) {
+
+            if (temp.data.type.equals(type)) {
+                list.add(temp.data);
+            }
+
+            temp = temp.next;
+        }
+
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+    }
+
+    // Sort ascending
+    static void sortAscending() {
+
+        ArrayList<Employee> list = new ArrayList<>();
+
+        Node temp = head;
+
+        while (temp != null) {
+            list.add(temp.data);
+            temp = temp.next;
+        }
+
+        Collections.sort(list, new Comparator<Employee>() {
+
+            public int compare(Employee e1, Employee e2) {
+                return e1.name.compareToIgnoreCase(e2.name);
+            }
+        });
+
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+    }
+
+    // Sort descending
+    static void sortDescending() {
+
+        ArrayList<Employee> list = new ArrayList<>();
+
+        Node temp = head;
+
+        while (temp != null) {
+            list.add(temp.data);
+            temp = temp.next;
+        }
+
+        Collections.sort(list, new Comparator<Employee>() {
+
+            public int compare(Employee e1, Employee e2) {
+                return e2.name.compareToIgnoreCase(e1.name);
+            }
+        });
+
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+    }
+
+    // Save to file
+    static void saveToFile() {
+
+        try {
+
+            ObjectOutputStream out =
+                    new ObjectOutputStream(
+                            new FileOutputStream("employees.dat"));
+
+            out.writeObject(head);
+
+            out.close();
+
+            System.out.println("Data Saved Successfully");
+
+        } catch (Exception e) {
+
+            System.out.println("Error while saving file");
+        }
+    }
+
+    // Load from file
+    static void loadFromFile() {
+
+        try {
+
+            ObjectInputStream in =
+                    new ObjectInputStream(
+                            new FileInputStream("employees.dat"));
+
+            head = (Node) in.readObject();
+
+            in.close();
+
+            tail = head;
+
+            if (head != null) {
+
+                while (tail.next != null) {
+                    tail = tail.next;
+                }
+
+                current = head;
+            }
+
+            System.out.println("Data Loaded Successfully");
+
+        } catch (Exception e) {
+
+            System.out.println("Error while loading file");
+        }
+    }
+
+    // Add Employee menu
+    static void addMenu() {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n--- Add Employee ---");
+            System.out.println("1. Manager");
+            System.out.println("2. Engineer");
+            System.out.println("3. Sales Person");
+            System.out.println("4. Exit to Main Menu");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+            case 1:
+                addEmployee("Manager");
+                break;
+
+            case 2:
+                addEmployee("Engineer");
+                break;
+
+            case 3:
+                addEmployee("Sales Person");
+                break;
+
+            case 4:
+                break;
+
+            default:
+                System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 4);
+    }
+
+    // Display menu
+    static void displayMenu() {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n--- Display ---");
+            System.out.println("1. All Employees");
+            System.out.println("2. First Employee");
+            System.out.println("3. Next Employee");
+            System.out.println("4. Previous Employee");
+            System.out.println("5. Last Employee");
+            System.out.println("6. Exit to Main Menu");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+            case 1:
+                displayAll();
+                break;
+
+            case 2:
+                firstEmployee();
+                break;
+
+            case 3:
+                nextEmployee();
+                break;
+
+            case 4:
+                previousEmployee();
+                break;
+
+            case 5:
+                lastEmployee();
+                break;
+
+            case 6:
+                break;
+
+            default:
+                System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 6);
+    }
+
+    // Sort menu
+    static void sortMenu() {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n--- Sort ---");
+            System.out.println("1. All Managers");
+            System.out.println("2. All Engineers");
+            System.out.println("3. All Sales Person");
+            System.out.println("4. All Employees Ascending");
+            System.out.println("5. All Employees Descending");
+            System.out.println("6. Exit to Main Menu");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+            case 1:
+                sortType("Manager");
+                break;
+
+            case 2:
+                sortType("Engineer");
+                break;
+
+            case 3:
+                sortType("Sales Person");
+                break;
+
+            case 4:
+                sortAscending();
+                break;
+
+            case 5:
+                sortDescending();
+                break;
+
+            case 6:
+                break;
+
+            default:
+                System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 6);
+    }
+
+    public static void main(String[] args) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n========== Employee Management ==========");
+            System.out.println("1. Add an Employee");
+            System.out.println("2. Display");
+            System.out.println("3. Sort");
+            System.out.println("4. Save to File");
+            System.out.println("5. Load from File");
+            System.out.println("6. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+            case 1:
+                addMenu();
+                break;
+
+            case 2:
+                displayMenu();
+                break;
+
+            case 3:
+                sortMenu();
+                break;
+
+            case 4:
+                saveToFile();
+                break;
+
+            case 5:
+                loadFromFile();
+                break;
+
+            case 6:
+                System.out.println("Thank You");
+                break;
+
+            default:
+                System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 6);
+    }
+}
