@@ -1,0 +1,136 @@
+import java.util.*;
+import java.time.LocalDate;
+import java.util.function.*;
+
+public class FunctionalInterfaceAssignment {
+
+    public static void main(String[] args) {
+
+        // 1. Sort String array alphabetically
+
+        String[] names = {"Rahul", "Amit", "Priya", "Neha", "Karan"};
+
+        Arrays.sort(names, (a, b) -> a.compareTo(b));
+
+        System.out.println("1. Sorted Array:");
+
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+
+        // 2. Find largest number
+
+        int[] arr = {10, 50, 20, 80, 30};
+
+        Function<int[], Integer> largest = a -> {
+
+            int max = a[0];
+
+            for (int i = 1; i < a.length; i++) {
+
+                if (a[i] > max) {
+                    max = a[i];
+                }
+            }
+
+            return max;
+        };
+
+        System.out.println("\n2. Largest Number: "
+                + largest.apply(arr));
+
+
+        // 3. Find smallest number
+
+        Function<int[], Integer> smallest = a -> {
+
+            int min = a[0];
+
+            for (int i = 1; i < a.length; i++) {
+
+                if (a[i] < min) {
+                    min = a[i];
+                }
+            }
+
+            return min;
+        };
+
+        System.out.println("\n3. Smallest Number: "
+                + smallest.apply(arr));
+
+
+        // 4. Generate 3 digit random number
+
+        Supplier<Integer> randomNumber = () ->
+                100 + new Random().nextInt(900);
+
+        System.out.println("\n4. Random 3 Digit Number: "
+                + randomNumber.get());
+
+
+        // 5. Reverse integer array
+
+        Function<int[], int[]> reverse = a -> {
+
+            int[] rev = new int[a.length];
+
+            for (int i = 0; i < a.length; i++) {
+
+                rev[i] = a[a.length - 1 - i];
+            }
+
+            return rev;
+        };
+
+        int[] reverseArray = reverse.apply(arr);
+
+        System.out.println("\n5. Reverse Array:");
+
+        for (int n : reverseArray) {
+            System.out.print(n + " ");
+        }
+
+
+        // 6. Print current date
+
+        Supplier<LocalDate> date = () -> LocalDate.now();
+
+        System.out.println("\n\n6. Current Date: "
+                + date.get());
+
+
+        // 7. Check Prime Number
+
+        Predicate<Integer> prime = n -> {
+
+            if (n < 2) {
+                return false;
+            }
+
+            for (int i = 2; i < n; i++) {
+
+                if (n % i == 0) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        int number = 17;
+
+        System.out.println("\n7. Is " + number
+                + " Prime: " + prime.test(number));
+
+
+        // 8. Concatenate two strings
+
+        BiFunction<String, String, String> concatenate =
+                (a, b) -> a + b;
+
+        System.out.println("\n8. Concatenated String: "
+                + concatenate.apply("Hello ", "Java"));
+    }
+}
