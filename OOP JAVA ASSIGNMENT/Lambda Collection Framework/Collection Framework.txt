@@ -1,0 +1,113 @@
+import java.time.LocalDate;
+import java.util.*;
+
+class Transaction {
+
+    int txId;
+    LocalDate txDate;
+    float txAmount;
+    boolean txStatus;
+    boolean txArrears;
+
+    Transaction(int txId, LocalDate txDate, float txAmount,
+                boolean txStatus, boolean txArrears) {
+
+        this.txId = txId;
+        this.txDate = txDate;
+        this.txAmount = txAmount;
+        this.txStatus = txStatus;
+        this.txArrears = txArrears;
+    }
+
+    public String toString() {
+        return txId + " " + txDate + " " + txAmount + " "
+                + txStatus + " " + txArrears;
+    }
+}
+
+public class TransactionAssignment {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<Transaction> list = new ArrayList<>();
+
+        // Taking 5 transactions from user
+        for (int i = 1; i <= 5; i++) {
+
+            System.out.println("\nEnter Transaction " + i);
+
+            System.out.print("Enter Transaction ID: ");
+            int id = sc.nextInt();
+
+            System.out.print("Enter Date (yyyy-mm-dd): ");
+            LocalDate date = LocalDate.parse(sc.next());
+
+            System.out.print("Enter Amount: ");
+            float amount = sc.nextFloat();
+
+            System.out.print("Enter Status (true/false): ");
+            boolean status = sc.nextBoolean();
+
+            System.out.print("Enter Arrears (true/false): ");
+            boolean arrears = sc.nextBoolean();
+
+            Transaction t =
+                    new Transaction(id, date, amount, status, arrears);
+
+            list.add(t);
+        }
+
+        // 1. Transactions where amount > 5000
+
+        System.out.println("\n--- Transactions Amount > 5000 ---");
+
+        list.forEach(t -> {
+
+            if (t.txAmount > 5000) {
+                System.out.println(t);
+            }
+
+        });
+
+        // 2. Transactions where status is false
+
+        System.out.println("\n--- Transactions Status False ---");
+
+        list.forEach(t -> {
+
+            if (!t.txStatus) {
+                System.out.println(t);
+            }
+
+        });
+
+        // 3. Calculate Amount Due
+
+        System.out.println("\n--- Amount Due ---");
+
+        list.forEach(t -> {
+
+            float amountDue;
+
+            if (t.txArrears) {
+
+                amountDue = t.txAmount
+                        + 500
+                        + (18 * t.txAmount / 100);
+
+            } else {
+
+                amountDue = t.txAmount;
+            }
+
+            System.out.println(
+                    "Transaction ID: " + t.txId +
+                    " Amount Due: " + amountDue
+            );
+        });
+
+        sc.close();
+    }
+}
