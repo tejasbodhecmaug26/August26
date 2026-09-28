@@ -1,0 +1,31 @@
+package array;
+import java.util.*;
+
+public class Question5 {
+	
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+	System.out.println("ENTER THE SIZE OF ARRAY");
+	int N=sc.nextInt();
+	 int arr[]= new int[N];
+	 
+	 int max=arr[0];
+	 int min=arr[0];
+	 for(int i=0;i<N;i++) {
+		 arr[i]=sc.nextInt();
+		 if(arr[i]>max) {
+			 max=arr[i];
+		 }
+		 if(arr[i]<min) {
+			 min=arr[i];
+		 }
+				 
+	 }
+	 System.out.println(max);
+	 System.out.println(min);
+	 
+
+	}
+
+}

@@ -1,0 +1,24 @@
+package array;
+import java.util.*;
+
+public class Question6 {
+	
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+	System.out.println("ENTER THE SIZE OF ARRAY");
+	int N=sc.nextInt();
+	 int arr[]= new int[N];
+	 
+    System.out.println("Enter elements");
+    for(int i=0;i<N;i++) {
+    	arr[i]=sc.nextInt();
+    }
+	 System.out.println("reverse array iss");
+	 for(int i=N-1;i>=0;i--) {
+		 System.out.println(arr[i]+" ");
+	 }
+
+	}
+
+}

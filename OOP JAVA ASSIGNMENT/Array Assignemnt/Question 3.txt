@@ -1,0 +1,26 @@
+package array;
+import java.util.*;
+
+public class Question3 {
+	
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+	System.out.println("ENTER THE SIZE OF ARRAY");
+	int N=sc.nextInt();
+	 int arr[]= new int[N];
+	 
+	 int sum=0;
+	 int Average=0;
+	 for(int i=0;i<N;i++) {
+		 arr[i]=sc.nextInt();
+		 sum = sum+arr[i];
+		 Average=sum/N;
+		 
+	 }
+	 System.out.println(Average);
+	 
+
+	}
+
+}

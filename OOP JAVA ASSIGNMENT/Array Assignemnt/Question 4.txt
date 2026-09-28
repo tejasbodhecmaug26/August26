@@ -1,0 +1,27 @@
+package array;
+import java.util.*;
+public class Question4 {
+	public static void main(String[]args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("ENTER THE SIZE");
+		int N=sc.nextInt();
+		
+		int[]arr=new int[N];
+		int[]copy=new int[N];
+		
+		System.out.println("ENTER THE ELEMENTS");
+		
+		for(int i=0;i<N;i++) {
+			arr[i]=sc.nextInt();
+			
+		}
+		for(int i=0;i<N;i++) {
+			copy[i]=arr[i];
+		}
+		System.out.println("copy array is ");
+		for(int i=0;i<N;i++) {
+			System.out.println(copy[i]+" ");
+		}
+	}
+
+}
