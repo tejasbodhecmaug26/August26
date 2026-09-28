@@ -1,0 +1,28 @@
+import java.util.Random;
+import java.util.function.Supplier;
+
+public class LambdaOTP {
+
+    public static void main(String[] args) {
+
+        Supplier<String> otp = () -> {
+
+            String vowels = "AEIOU";
+
+            Random r = new Random();
+
+            char first = vowels.charAt(r.nextInt(5));
+
+            String result = "" + first;
+
+            for (int i = 1; i <= 4; i++) {
+
+                result = result + r.nextInt(10);
+            }
+
+            return result;
+        };
+
+        System.out.println("OTP: " + otp.get());
+    }
+}
